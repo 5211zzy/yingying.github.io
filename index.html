@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>星际玫瑰｜黄警莹18岁诞辰</title>
+    <style>
+        :root {
+            --primary-color: #ff5f9e;
+            --secondary-color: #a4508b;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a1a1a, #000);
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        .nebula {
+            position: fixed;
+            width: 300vw;
+            height: 300vh;
+            background: radial-gradient(circle, 
+                rgba(164,80,139,0.2) 0%, 
+                rgba(0,0,0,0) 70%);
+            animation: drift 120s linear infinite;
+        }
+
+        .title-wrapper {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .title {
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, 
+                var(--primary-color), 
+                #fff, 
+                var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px var(--primary-color);
+            animation: textGlow 3s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .audio-visualizer {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, 
+                rgba(255,95,158,0.1) 30%, 
+                transparent 70%);
+            margin: 2rem auto;
+        }
+
+        .vinyl {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle, 
+                    #1a1a1a 65%, 
+                    #333 65% 100%);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes drift { 100% { transform: translate(-50%, -50%); } }
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--primary-color)); }
+            50% { filter: drop-shadow(0 0 30px var(--secondary-color)); }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="nebula"></div>
+    
+    <div class="container">
+        <div class="title-wrapper">
+            <h1 class="title">✦ 黄警莹 ✦<br>Stellar Bloom</h1>
+        </div>
+
+        <div class="audio-visualizer">
+            <div class="vinyl">
+                <audio id="player" controls hidden>
+                    <source src="https://example.com/陶喆-天天.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 生成动态星空
+        function createStars() {
+            for(let i=0; i<500; i++){
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.setProperty('--duration', Math.random()*3+2+'s');
+                star.style.left = Math.random()*100 + '%';
+                star.style.top = Math.random()*100 + '%';
+                star.style.width = Math.random()*3 + 'px';
+                star.style.height = star.style.width;
+                document.body.appendChild(star);
+            }
+        }
+
+        // 唱片交互
+        const vinyl = document.querySelector('.vinyl');
+        vinyl.addEventListener('click', () => {
+            const player = document.getElementById('player');
+            player.hidden ? player.play() : player.pause();
+            player.hidden = !player.hidden;
+        });
+
+        // 启动特效
+        createStars();
+        new Vivus('title', {duration: 200}, () => {
+            document.querySelector('.title').classList.add('glow');
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.6/vivus.min.js"></script>
+</body>
+</html>
